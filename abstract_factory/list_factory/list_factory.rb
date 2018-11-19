@@ -1,4 +1,8 @@
 require '../factory'
+import Factory::Factory
+import Factory::Item
+import Factory::Page
+import Factory::Tray
 
 module ListFactory
   module ListFactory extend Factory::Factory

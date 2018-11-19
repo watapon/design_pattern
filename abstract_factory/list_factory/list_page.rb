@@ -1,3 +1,9 @@
+require '../factory'
+import Factory::Factory
+import Factory::Item
+import Factory::Page
+import Factory::Tray
+
 module ListFactory
   class ListPage
     def initialize(title, author)

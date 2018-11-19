@@ -1,3 +1,9 @@
+require '../factory'
+import Factory::Factory
+import Factory::Item
+import Factory::Page
+import Factory::Tray
+
 module ListFactory
   class ListLink
     def initialize(caption, url)

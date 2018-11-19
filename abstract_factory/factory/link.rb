@@ -1,6 +1,5 @@
 module Factory
-  module Link
-    extend Item
+  module Link extend Item
     def link(caption, url)
       super(caption)
       @url = url
