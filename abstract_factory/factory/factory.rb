@@ -1,7 +1,9 @@
+require './list_factory/list_factory'
+
 module Factory
-  module Factory
+  class Factory
     def get_factory(classname)
-      factory = const_get(classname).new
+      Module.const_get(classname).new
     rescue => e
       p e
     end

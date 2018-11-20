@@ -1,24 +1,18 @@
-require '../factory'
-import Factory::Factory
-import Factory::Item
-import Factory::Page
-import Factory::Tray
+require './factory/tray'
 
 module ListFactory
-  class ListTray
+  class ListTray < Factory::Tray
     def initialize(caption)
       super(caption)
     end
 
     def make_html
-      buffer = []
+      buffer = ''
       buffer << "<li>"
-      buffer << "#{caption}"
+      buffer << "#{@caption}"
       buffer << "<ul>"
 
-      it = tray.iterator
-      while it = has_next
-        item = it.next
+      @tray.each do |item|
         buffer << item.make_html
       end
 

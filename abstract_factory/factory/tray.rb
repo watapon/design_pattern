@@ -1,10 +1,9 @@
-module Factory
-  module Tray extend Item
-    def initialize
-      @tray = []
-    end
+require './factory/item'
 
-    def tray(caption)
+module Factory
+  class Tray < Factory::Item
+    def initialize(caption)
+      @tray = []
       super(caption)
     end
 

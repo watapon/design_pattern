@@ -1,6 +1,8 @@
+require './factory/item'
+
 module Factory
-  module Link extend Item
-    def link(caption, url)
+  class Link < Factory::Item
+    def initialize(caption, url)
       super(caption)
       @url = url
     end

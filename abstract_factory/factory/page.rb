@@ -1,28 +1,27 @@
 module Factory
-  module Page
-    def initialize()
+  class Page
+    def initialize(title, author)
       @content = []
-    end
-
-    def page(title, author)
-      @title = title
-      @author = author
+      @title   = title
+      @author  = author
     end
 
     def add(item)
-      content << item
+      @content << item
     end
 
     def output
       filename = @title + ".html"
-      writer = FileWriter.new(filename)
-      writer.write(make_html)
-      write.close
+      p make_html
+      #writer = FileWriter.new(filename)
+      #writer.write(make_html)
+      #write.close
       p "#{filename} を作成しました"
     rescue => e
       p e
     end
 
-    make_html
+    def make_html
+    end
   end
 end

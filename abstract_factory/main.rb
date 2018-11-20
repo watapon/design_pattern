@@ -1,5 +1,5 @@
 require './factory/factory'
-include Factory::Factory
+require './factory/factory'
 
 class Main
   def main(args)
@@ -8,7 +8,7 @@ class Main
       exit
     end
 
-    factory = Factory.get_factory(args[0])
+    factory = Factory::Factory.new.get_factory(args[0])
 
     asahi = factory.create_link("朝日新聞", "https://asashi.com")
     yomiuri = factory.create_link("読売新聞", "https://yomiuri.co.jp")
@@ -20,6 +20,7 @@ class Main
     google = factory.create_link("Google", "https//google.com")
 
     traynews = factory.create_tray("新聞")
+
     traynews.add(asahi)
     traynews.add(yomiuri)
 
@@ -35,7 +36,8 @@ class Main
     page = factory.create_page("LinkPage", "結城　浩")
     page.add(traynews)
     page.add(traysearch)
-    page
+
+    page.output
   end
 
   def usage
