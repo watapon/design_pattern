@@ -14,6 +14,8 @@ class Element
 end
 
 class Entry < Element
+  attr_reader :name, :size
+
   def initialize(name, size)
     @name = name
     @size = size
@@ -28,11 +30,13 @@ class Entry < Element
   end
 
   def to_string
-    "#{@name}(#{@size})"
+    "#{name}(#{size})"
   end
 end
 
 class Filee < Entry
+  attr_reader :name, :size
+
   def initialize(name, size)
     @name = name
     @size = size
@@ -44,18 +48,19 @@ class Filee < Entry
 end
 
 class Directory < Entry
+  attr_reader :name, :directory
   def initialize(name)
     @name = name
     @directory = []
   end
 
   def size
-    size = 0
-    directory.each do |entry|
-      size << entry.size
+    @size = 0
+    @directory.each do |entry|
+      @size += entry.size
     end
 
-    size
+    @size
   end
 
   def add(entry)
@@ -73,11 +78,11 @@ class ListVisitor < Visitor
   end
 
   def visit_filee(filee)
-    p "#{@current_directory}/#{filee.name}"
+    p "#{@current_directory}/#{filee.to_string}"
   end
 
   def visit_directory(directory)
-    p "#{@current_directory}/#{directory&.directory}"
+    p "#{@current_directory}/#{directory.to_string}"
     save_directory = @current_directory
     @current_directory = "#{@current_directory}/#{directory.name}"
 
@@ -94,7 +99,7 @@ class Main
     puts "Making root entries..."
 
     root_directory = Directory.new("root")
-    bin_directory = Directory.new("directory")
+    bin_directory = Directory.new("bin")
     tmp_directory = Directory.new("tmp")
     usr_directory = Directory.new("usr")
 
@@ -104,26 +109,6 @@ class Main
 
     bin_directory.add(Filee.new("vi", 10000))
     bin_directory.add(Filee.new("latex", 20000))
-
-    root_directory.accept(ListVisitor.new)
-
-    puts ""
-    puts "Making user entries..."
-
-    yuki = Directory.new("yuki")
-    hanako = Directory.new("hanako")
-    tomura = Directory.new("tomura")
-
-    usr_directory.add(yuki)
-    usr_directory.add(hanako)
-    usr_directory.add(tomura)
-
-    yuki.add(Filee.new("diary.html", 100))
-    yuki.add(Filee.new("Composite.java", 200))
-
-    hanako.add(Filee.new("memo.tex", 300))
-    hanako.add(Filee.new("game.doc", 400))
-    hanako.add(Filee.new("junk.mail", 500))
 
     root_directory.accept(ListVisitor.new)
   end
